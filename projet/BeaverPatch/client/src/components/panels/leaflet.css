@@ -1,0 +1,75 @@
+/* Animation pour cercle de position */
+@keyframes pulse-circle {
+  0% {
+    stroke-width: 3;
+    stroke-opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    stroke-width: 6;
+    stroke-opacity: 0.5;
+    transform: scale(1.2);
+  }
+  100% {
+    stroke-width: 3;
+    stroke-opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pulse-circle {
+  animation: pulse-circle 1.5s ease-in-out infinite;
+  stroke-width: 5;
+  fill-opacity: 0.9 !important;
+  stroke-opacity: 1;
+}
+
+/* Styles pour s'assurer que les marqueurs sont toujours visibles */
+.leaflet-map-pane .leaflet-objects-pane .leaflet-overlay-pane path {
+  pointer-events: auto !important;
+}
+
+.leaflet-marker-icon {
+  z-index: 1000 !important;
+}
+
+/* Augmenter le z-index des cercles pour qu'ils passent au-dessus des routes */
+.leaflet-overlay-pane {
+  z-index: 650 !important; 
+}
+
+/* Improve map controls */
+.leaflet-control-zoom {
+  margin-top: 60px !important;
+}
+
+/* Make sure the user marker is always on top */
+.custom-user-marker {
+  z-index: 1000 !important;
+}
+
+.custom-user-marker div {
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Ensure map takes full height */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

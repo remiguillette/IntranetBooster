@@ -1,0 +1,53 @@
+~/workspace$ chmod +x start_beavernet_apps.sh
+ Environment updated. Reloading shell...
+~/workspace$ ./start_beavernet_apps.sh
+=== Démarrage des applications Beavernet ===
+Ce script va installer et lancer toutes les sous-applications du dossier 'projet'
+
+===== Traitement de BeaverLaw5002 =====
+[INFO] Installation des dépendances pour BeaverLaw5002...
+./start_beavernet_apps.sh: line 43: ./logs/BeaverLaw5002.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour BeaverLaw5002
+Consultez le fichier ./logs/BeaverLaw5002.log pour plus de détails
+
+===== Traitement de BeaverMonitor =====
+[INFO] Installation des dépendances pour BeaverMonitor...
+./start_beavernet_apps.sh: line 43: ./logs/BeaverMonitor.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour BeaverMonitor
+Consultez le fichier ./logs/BeaverMonitor.log pour plus de détails
+
+===== Traitement de BeavernetCRM =====
+[INFO] Installation des dépendances pour BeavernetCRM...
+./start_beavernet_apps.sh: line 43: ./logs/BeavernetCRM.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour BeavernetCRM
+Consultez le fichier ./logs/BeavernetCRM.log pour plus de détails
+
+===== Traitement de BeaverPatch =====
+[INFO] Installation des dépendances pour BeaverPatch...
+./start_beavernet_apps.sh: line 43: ./logs/BeaverPatch.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour BeaverPatch
+Consultez le fichier ./logs/BeaverPatch.log pour plus de détails
+
+===== Traitement de BeaverScanner =====
+[INFO] Installation des dépendances pour BeaverScanner...
+./start_beavernet_apps.sh: line 43: ./logs/BeaverScanner.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour BeaverScanner
+Consultez le fichier ./logs/BeaverScanner.log pour plus de détails
+
+===== Traitement de BeaverTracker =====
+[INFO] Installation des dépendances pour BeaverTracker...
+./start_beavernet_apps.sh: line 43: ./logs/BeaverTracker.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour BeaverTracker
+Consultez le fichier ./logs/BeaverTracker.log pour plus de détails
+
+===== Traitement de PaymentNoir =====
+[INFO] Installation des dépendances pour PaymentNoir...
+./start_beavernet_apps.sh: line 43: ./logs/PaymentNoir.log: No such file or directory
+[ERREUR] Problème lors de l'installation des dépendances pour PaymentNoir
+Consultez le fichier ./logs/PaymentNoir.log pour plus de détails
+
+===== Toutes les applications ont été traitées =====
+Consultez les fichiers de log dans le dossier ./logs pour plus de détails
+
+Appuyez sur Ctrl+C pour arrêter toutes les applications
+Les applications tournent maintenant en arrière-plan

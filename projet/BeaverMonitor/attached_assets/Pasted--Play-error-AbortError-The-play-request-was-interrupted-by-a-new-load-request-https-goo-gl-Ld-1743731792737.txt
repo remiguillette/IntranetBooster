@@ -1,0 +1,75 @@
+ Play error: AbortError: The play() request was interrupted by a new load request. https://goo.gl/LdLk22
+(anonymous) @ /src/components/VideoPlayerPanel.tsx:98Understand this errorAI
+ Video load started
+ Loading video: {title: 'Video 1', src: 'assets/Video1.mp4', type: 'video/mp4'}
+ Loading video: {title: 'Video 1', src: 'assets/Video1.mp4', type: 'video/mp4'}
+ Play error: AbortError: The play() request was interrupted by a new load request. https://goo.gl/LdLk22
+(anonymous) @ /src/components/VideoPlayerPanel.tsx:98
+Promise.catch
+(anonymous) @ /src/components/VideoPlayerPanel.tsx:97
+commitHookEffectListMount @ chunk-WERSD76P.js:16915
+commitPassiveMountOnFiber @ chunk-WERSD76P.js:18156
+commitPassiveMountEffects_complete @ chunk-WERSD76P.js:18129
+commitPassiveMountEffects_begin @ chunk-WERSD76P.js:18119
+commitPassiveMountEffects @ chunk-WERSD76P.js:18109
+flushPassiveEffectsImpl @ chunk-WERSD76P.js:19490
+flushPassiveEffects @ chunk-WERSD76P.js:19447
+commitRootImpl @ chunk-WERSD76P.js:19416
+commitRoot @ chunk-WERSD76P.js:19277
+performSyncWorkOnRoot @ chunk-WERSD76P.js:18895
+flushSyncCallbacks @ chunk-WERSD76P.js:9119
+(anonymous) @ chunk-WERSD76P.js:18627
+play
+togglePlay @ /src/components/VideoPlayerPanel.tsx:113
+callCallback2 @ chunk-WERSD76P.js:3674
+invokeGuardedCallbackDev @ chunk-WERSD76P.js:3699
+invokeGuardedCallback @ chunk-WERSD76P.js:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WERSD76P.js:3736
+executeDispatch @ chunk-WERSD76P.js:7014
+processDispatchQueueItemsInOrder @ chunk-WERSD76P.js:7034
+processDispatchQueue @ chunk-WERSD76P.js:7043
+dispatchEventsForPlugins @ chunk-WERSD76P.js:7051
+(anonymous) @ chunk-WERSD76P.js:7174
+batchedUpdates$1 @ chunk-WERSD76P.js:18913
+batchedUpdates @ chunk-WERSD76P.js:3579
+dispatchEventForPluginEventSystem @ chunk-WERSD76P.js:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WERSD76P.js:5478
+dispatchEvent @ chunk-WERSD76P.js:5472
+dispatchDiscreteEvent @ chunk-WERSD76P.js:5449Understand this errorAI
+ Video load started
+ Loading video: {title: 'Video 1', src: 'assets/Video1.mp4', type: 'video/mp4'}
+ Loading video: {title: 'Video 1', src: 'assets/Video1.mp4', type: 'video/mp4'}
+ Play error: AbortError: The play() request was interrupted by a new load request. https://goo.gl/LdLk22
+(anonymous) @ /src/components/VideoPlayerPanel.tsx:98
+Promise.catch
+(anonymous) @ /src/components/VideoPlayerPanel.tsx:97
+commitHookEffectListMount @ chunk-WERSD76P.js:16915
+commitPassiveMountOnFiber @ chunk-WERSD76P.js:18156
+commitPassiveMountEffects_complete @ chunk-WERSD76P.js:18129
+commitPassiveMountEffects_begin @ chunk-WERSD76P.js:18119
+commitPassiveMountEffects @ chunk-WERSD76P.js:18109
+flushPassiveEffectsImpl @ chunk-WERSD76P.js:19490
+flushPassiveEffects @ chunk-WERSD76P.js:19447
+commitRootImpl @ chunk-WERSD76P.js:19416
+commitRoot @ chunk-WERSD76P.js:19277
+performSyncWorkOnRoot @ chunk-WERSD76P.js:18895
+flushSyncCallbacks @ chunk-WERSD76P.js:9119
+(anonymous) @ chunk-WERSD76P.js:18627
+play
+togglePlay @ /src/components/VideoPlayerPanel.tsx:113
+callCallback2 @ chunk-WERSD76P.js:3674
+invokeGuardedCallbackDev @ chunk-WERSD76P.js:3699
+invokeGuardedCallback @ chunk-WERSD76P.js:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-WERSD76P.js:3736
+executeDispatch @ chunk-WERSD76P.js:7014
+processDispatchQueueItemsInOrder @ chunk-WERSD76P.js:7034
+processDispatchQueue @ chunk-WERSD76P.js:7043
+dispatchEventsForPlugins @ chunk-WERSD76P.js:7051
+(anonymous) @ chunk-WERSD76P.js:7174
+batchedUpdates$1 @ chunk-WERSD76P.js:18913
+batchedUpdates @ chunk-WERSD76P.js:3579
+dispatchEventForPluginEventSystem @ chunk-WERSD76P.js:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-WERSD76P.js:5478
+dispatchEvent @ chunk-WERSD76P.js:5472
+dispatchDiscreteEvent @ chunk-WERSD76P.js:5449Understand this errorAI
+ Video load started
