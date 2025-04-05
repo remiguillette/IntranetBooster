@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   
   // Try to fetch current user on initial load
   const { data, isLoading, error } = useQuery<AuthUser>({
-    queryKey: ["/api/me"],
+    queryKey: ["/api/user"],
     queryFn: getQueryFn({ on401: "returnNull" }),
     retry: false,
   });

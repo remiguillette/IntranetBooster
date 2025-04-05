@@ -2,7 +2,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import session from "express-session";
-import { loginSchema } from "@shared/schema";
+import { loginSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 import { fromZodError } from "zod-validation-error";
 import MemoryStoreFactory from "memorystore";
@@ -38,6 +38,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     next();
   };
 
+  // Register route
+  app.post("/api/register", async (req, res) => {
+    try {
+      const userData = insertUserSchema.parse(req.body);
+      
+      // Check if user already exists
+      const existingUser = await storage.getUserByUsername(userData.username);
+      if (existingUser) {
+        return res.status(400).json({ 
+          message: "Un utilisateur avec cette adresse e-mail existe déjà" 
+        });
+      }
+      
+      // Create new user
+      const user = await storage.createUser(userData);
+      
+      // Save user info in session
+      req.session.userId = user.id;
+      
+      // Return user info (excluding password)
+      const { password, ...userInfo } = user;
+      return res.status(201).json(userInfo);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      
+      return res.status(500).json({ 
+        message: "Une erreur est survenue lors de l'inscription" 
+      });
+    }
+  });
+  
   // Login route
   app.post("/api/login", async (req, res) => {
     try {
@@ -83,6 +117,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get current user
+  // Get user data (renamed to match frontend expectations)
+  app.get("/api/user", async (req, res) => {
+    if (!req.session.userId) {
+      return res.status(401).json({ message: "Non authentifié" });
+    }
+    
+    try {
+      const user = await storage.getUser(req.session.userId as number);
+      
+      if (!user) {
+        return res.status(404).json({ message: "Utilisateur non trouvé" });
+      }
+      
+      // Return user info (excluding password)
+      const { password, ...userInfo } = user;
+      return res.status(200).json(userInfo);
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Une erreur est survenue lors de la récupération de l'utilisateur" 
+      });
+    }
+  });
+  
+  // Legacy endpoint for compatibility
   app.get("/api/me", requireAuth, async (req, res) => {
     try {
       const user = await storage.getUser(req.session.userId as number);

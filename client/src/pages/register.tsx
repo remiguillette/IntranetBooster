@@ -5,22 +5,22 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth";
 
-const loginSchema = z.object({
+const registerSchema = z.object({
   username: z.string().email("Veuillez entrer une adresse e-mail valide"),
-  password: z.string().min(1, "Le mot de passe est requis"),
-  rememberMe: z.boolean().optional(),
+  password: z.string().min(6, "Le mot de passe doit comporter au moins 6 caractères"),
+  displayName: z.string().min(2, "Le nom d'affichage est requis"),
+  initials: z.string().min(1, "Les initiales sont requises").max(3, "3 caractères maximum"),
 });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export default function Login() {
+export default function Register() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { user, setUser } = useAuth();
@@ -32,39 +32,40 @@ export default function Login() {
     }
   }, [user, setLocation]);
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
       password: "",
-      rememberMe: false,
+      displayName: "",
+      initials: "",
     },
   });
 
-  const loginMutation = useMutation({
-    mutationFn: async (data: LoginFormValues) => {
-      const res = await apiRequest("POST", "/api/login", data);
+  const registerMutation = useMutation({
+    mutationFn: async (data: RegisterFormValues) => {
+      const res = await apiRequest("POST", "/api/register", data);
       return res.json();
     },
     onSuccess: (data) => {
       setUser(data);
       setLocation("/dashboard");
       toast({
-        title: "Connexion réussie",
+        title: "Inscription réussie",
         description: "Bienvenue sur Beavernet",
       });
     },
     onError: (error) => {
       toast({
         variant: "destructive",
-        title: "Erreur de connexion",
-        description: error instanceof Error ? error.message : "Nom d'utilisateur ou mot de passe incorrect",
+        title: "Erreur d'inscription",
+        description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'inscription",
       });
     },
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    loginMutation.mutate(data);
+  const onSubmit = (data: RegisterFormValues) => {
+    registerMutation.mutate(data);
   };
 
   return (
@@ -73,10 +74,10 @@ export default function Login() {
         {/* Logo and header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-[#f89422]">Beavernet</h1>
-          <p className="mt-2 text-gray-300">Portail intranet</p>
+          <p className="mt-2 text-gray-300">Créer un compte</p>
         </div>
         
-        {/* Login form */}
+        {/* Registration form */}
         <div className="bg-[#1E1E1E] rounded-lg shadow-lg p-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -90,6 +91,43 @@ export default function Login() {
                       <Input 
                         placeholder="nom@entreprise.com" 
                         className="bg-[#2D2D2D] border-gray-700 text-white" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="displayName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[#f89422]">Nom complet</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Jean Dupont" 
+                        className="bg-[#2D2D2D] border-gray-700 text-white" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="initials"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[#f89422]">Initiales</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="JD" 
+                        className="bg-[#2D2D2D] border-gray-700 text-white" 
+                        maxLength={3}
                         {...field} 
                       />
                     </FormControl>
@@ -117,48 +155,25 @@ export default function Login() {
                 )}
               />
               
-              <div className="flex items-center justify-between">
-                <FormField
-                  control={form.control}
-                  name="rememberMe"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center space-x-2 space-y-0">
-                      <FormControl>
-                        <Checkbox 
-                          checked={field.value} 
-                          onCheckedChange={field.onChange} 
-                          className="text-[#f89422] bg-[#2D2D2D] border-gray-700" 
-                        />
-                      </FormControl>
-                      <FormLabel className="text-gray-300 text-sm">Se souvenir de moi</FormLabel>
-                    </FormItem>
-                  )}
-                />
-                
-                <a href="#" className="text-sm text-[#f89422] hover:underline">
-                  Mot de passe oublié?
-                </a>
-              </div>
-              
               <div className="flex flex-col space-y-4">
                 <Button 
                   type="submit" 
                   className="w-full bg-[#f89422] hover:bg-opacity-90 text-white"
-                  disabled={loginMutation.isPending}
+                  disabled={registerMutation.isPending}
                 >
-                  {loginMutation.isPending ? "Connexion..." : "Se connecter"}
+                  {registerMutation.isPending ? "Inscription..." : "S'inscrire"}
                 </Button>
                 
                 <div className="text-center">
                   <a 
-                    href="/register" 
+                    href="/" 
                     className="text-sm text-[#f89422] hover:underline"
                     onClick={(e) => {
                       e.preventDefault();
-                      setLocation("/register");
+                      setLocation("/");
                     }}
                   >
-                    Vous n'avez pas de compte? S'inscrire
+                    Vous avez déjà un compte? Se connecter
                   </a>
                 </div>
               </div>
