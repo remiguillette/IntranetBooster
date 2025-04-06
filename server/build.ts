@@ -14,7 +14,7 @@ const buildServer = async () => {
       format: "cjs",
       bundle: true,
       packages: "external",
-      outExtension: { '.js': '.cjs' },
+      outbase: ".", // Preserve directory structure
     });
     console.log("Build completed successfully");
   } catch (error) {
