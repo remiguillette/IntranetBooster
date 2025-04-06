@@ -41,8 +41,6 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
   return (
     <a 
       href={appUrl} 
-      target="_blank" 
-      rel="noopener noreferrer" 
       className="group block"
     >
       <Card className="bg-[#1E1E1E] border-none shadow-md transition-all duration-200 transform group-hover:-translate-y-1 group-hover:shadow-lg">
