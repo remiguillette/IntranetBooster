@@ -11,7 +11,7 @@ const buildServer = async () => {
       outdir: "dist",
       platform: "node",
       target: "node18",
-      format: "cjs",
+      format: "esm",
       bundle: true,
       packages: "external",
       outbase: ".", // Preserve directory structure
