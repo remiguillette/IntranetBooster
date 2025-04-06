@@ -2,17 +2,24 @@
 import { build } from "esbuild";
 import { glob } from "glob";
 
-async function buildServer() {
+const buildServer = async () => {
   const entryPoints = await glob("server/**/*.ts");
   
-  await build({
-    entryPoints,
-    platform: "node",
-    target: "node18",
-    format: "cjs",
-    outdir: "dist",
-    bundle: false,
-  });
-}
+  try {
+    await build({
+      entryPoints,
+      outdir: "dist",
+      platform: "node",
+      target: "node18",
+      format: "esm",
+      bundle: true,
+      packages: "external",
+    });
+    console.log("Build completed successfully");
+  } catch (error) {
+    console.error("Build failed:", error);
+    process.exit(1);
+  }
+};
 
-buildServer().catch(console.error);
+buildServer();
