@@ -14,7 +14,7 @@ const buildServer = async () => {
       format: "esm",
       bundle: true,
       packages: "external",
-      outbase: ".", // Preserve directory structure
+      outbase: "server", // Changed from "." to "server" to get correct path structure
     });
     console.log("Build completed successfully");
   } catch (error) {
