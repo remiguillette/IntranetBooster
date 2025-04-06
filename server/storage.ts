@@ -41,43 +41,55 @@ export class MemStorage implements IStorage {
       initials: "JD"
     });
     
-    // Initialize with sample applications
+    // Initialize with our actual applications
     const defaultApps = [
       {
         name: "Tableau de bord",
         description: "Statistiques et rapports",
-        port: 8080,
-        icon: "bar-chart-3"
+        port: 80,
+        icon: "layout-dashboard"
       },
       {
-        name: "Calendrier",
-        description: "Gestion des événements",
-        port: 8081,
-        icon: "calendar"
+        name: "BeaverLaw5002",
+        description: "Système de gestion juridique",
+        port: 3000,
+        icon: "scale"
       },
       {
-        name: "Messagerie",
-        description: "Communications internes",
-        port: 8082,
-        icon: "mail"
+        name: "BeaverMonitor",
+        description: "Surveillance des systèmes",
+        port: 3003,
+        icon: "activity"
       },
       {
-        name: "Ressources Humaines",
-        description: "Gestion du personnel",
-        port: 8083,
+        name: "BeaverPatch",
+        description: "Gestion des mises à jour",
+        port: 3002,
+        icon: "update"
+      },
+      {
+        name: "BeaverScanner",
+        description: "Scanner de documents",
+        port: 3001,
+        icon: "scan"
+      },
+      {
+        name: "BeaverTracker",
+        description: "Suivi géographique",
+        port: 5000, 
+        icon: "map-pin"
+      },
+      {
+        name: "BeavernetCRM",
+        description: "Gestion des clients",
+        port: 4200,
         icon: "users"
       },
       {
-        name: "Documents",
-        description: "Base documentaire",
-        port: 8084,
-        icon: "file-text"
-      },
-      {
-        name: "Visioconférence",
-        description: "Réunions à distance",
-        port: 8085,
-        icon: "video"
+        name: "PaymentNoir",
+        description: "Système de paiement sécurisé",
+        port: 80,
+        icon: "credit-card"
       },
     ];
     

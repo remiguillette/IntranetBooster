@@ -10,28 +10,33 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
   // Get the icon using a simpler approach
   const renderIcon = () => {
     switch(application.icon) {
-      case 'bar-chart-3':
-        return <Icons.BarChart3 className="h-6 w-6 text-white" />;
-      case 'calendar':
-        return <Icons.Calendar className="h-6 w-6 text-white" />;
-      case 'mail':
-        return <Icons.Mail className="h-6 w-6 text-white" />;
+      case 'layout-dashboard':
+        return <Icons.LayoutDashboard className="h-6 w-6 text-white" />;
+      case 'scale':
+        return <Icons.Scale className="h-6 w-6 text-white" />;
+      case 'activity':
+        return <Icons.Activity className="h-6 w-6 text-white" />;
+      case 'update':
+        return <Icons.RefreshCw className="h-6 w-6 text-white" />; 
+      case 'scan':
+        return <Icons.ScanLine className="h-6 w-6 text-white" />;
+      case 'map-pin':
+        return <Icons.MapPin className="h-6 w-6 text-white" />;
       case 'users':
         return <Icons.Users className="h-6 w-6 text-white" />;
-      case 'file-text':
-        return <Icons.FileText className="h-6 w-6 text-white" />;
-      case 'video':
-        return <Icons.Video className="h-6 w-6 text-white" />;
+      case 'credit-card':
+        return <Icons.CreditCard className="h-6 w-6 text-white" />;
       default:
         return <Icons.Webhook className="h-6 w-6 text-white" />;
     }
   };
   
   // Form URL with port
-  // Use the full origin (protocol + hostname + port) as the base URL
-  // This ensures we connect to the correct domain regardless of how the app is hosted
-  const baseUrl = window.location.origin;
-  const appUrl = `${baseUrl}/app/${application.id}`;
+  // Extract protocol and hostname without port from the current URL
+  const protocol = window.location.protocol;
+  const hostname = window.location.hostname;
+  // Build URL using the application's specific port
+  const appUrl = `${protocol}//${hostname}:${application.port}`;
   
   return (
     <a 

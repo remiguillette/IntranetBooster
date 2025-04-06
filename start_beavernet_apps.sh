@@ -9,28 +9,14 @@ ORANGE='\033[0;33m'
 NC='\033[0m' # No Color
 
 echo -e "${ORANGE}=== Démarrage des applications Beavernet ===${NC}"
-echo -e "${BLUE}Ce script va installer et lancer toutes les sous-applications du dossier 'projet'${NC}"
+echo -e "${BLUE}Ce script va démarrer toutes les sous-applications du dossier 'projet'${NC}"
 
-# Créer le dossier de logs s'il n'existe pas
-mkdir -p ./logs
-touch ./logs/install.log
-
-# Fonction pour traiter chaque application
-install_and_start_app() {
+# Fonction pour démarrer une application
+start_app() {
     local app_dir="$1"
     local app_name=$(basename "$app_dir")
-    local log_file="./logs/${app_name}.log"
-    
-    # Créer le fichier de log vide pour cette application
-    touch "$log_file"
 
-    echo -e "\n${YELLOW}===== Traitement de $app_name =====${NC}"
-
-    # Vérifier si le dossier existe
-    if [ ! -d "$app_dir" ]; then
-        echo -e "${RED}[ERREUR] Le dossier $app_dir n'existe pas${NC}"
-        return 1
-    fi
+    echo -e "\n${YELLOW}===== Démarrage de $app_name =====${NC}"
 
     # Se déplacer dans le dossier de l'application
     cd "$app_dir" || return 1
@@ -42,29 +28,18 @@ install_and_start_app() {
         return 1
     fi
 
-    # Installer les dépendances
-    echo -e "${GREEN}[INFO] Installation des dépendances pour $app_name...${NC}"
-    npm install > "$log_file" 2>&1
-
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}[ERREUR] Problème lors de l'installation des dépendances pour $app_name${NC}"
-        echo -e "${BLUE}Consultez le fichier $log_file pour plus de détails${NC}"
-        cd - > /dev/null
-        return 1
-    fi
-
     # Démarrer l'application en arrière-plan
     echo -e "${GREEN}[INFO] Démarrage de $app_name...${NC}"
-    npm start >> "$log_file" 2>&1 &
+    npm start &
 
     # Sauvegarder le PID
-    echo $! > "../logs/${app_name}.pid"
-    echo -e "${GREEN}[SUCCÈS] Application $app_name démarrée (PID: $!)${NC}"
+    local pid=$!
+    echo -e "${GREEN}[SUCCÈS] Application $app_name démarrée (PID: $pid)${NC}"
 
     # Revenir au dossier parent
     cd - > /dev/null
 
-    # Ajouter un délai entre le démarrage des applications pour éviter les conflits
+    # Ajouter un délai entre le démarrage des applications
     sleep 2
 }
 
@@ -75,40 +50,13 @@ for app_dir in projet/*/; do
         continue
     fi
 
-    # Traiter chaque application
-    install_and_start_app "$app_dir"
+    # Démarrer l'application
+    start_app "$app_dir"
 done
 
-echo -e "\n${GREEN}===== Toutes les applications ont été traitées =====${NC}"
-echo -e "${BLUE}Consultez les fichiers de log dans le dossier ./logs pour plus de détails${NC}"
+echo -e "\n${GREEN}===== Toutes les applications ont été démarrées =====${NC}"
 
-# Fonction pour arrêter toutes les applications
-stop_all_apps() {
-    echo -e "\n${YELLOW}Arrêt de toutes les applications...${NC}"
-
-    for pid_file in ./logs/*.pid; do
-        if [ -f "$pid_file" ]; then
-            local pid=$(cat "$pid_file")
-            local app_name=$(basename "$pid_file" .pid)
-
-            if ps -p "$pid" > /dev/null; then
-                kill "$pid"
-                echo -e "${GREEN}Application $app_name arrêtée (PID: $pid)${NC}"
-            else
-                echo -e "${ORANGE}L'application $app_name (PID: $pid) n'est pas en cours d'exécution${NC}"
-            fi
-
-            rm "$pid_file"
-        fi
-    done
-
-    echo -e "${GREEN}Toutes les applications ont été arrêtées${NC}"
-}
-
-# Ajouter un trap pour capturer Ctrl+C
-trap 'stop_all_apps; exit 0' INT
-
-echo -e "\n${BLUE}Appuyez sur Ctrl+C pour arrêter toutes les applications${NC}"
+echo -e "\n${BLUE}Appuyez sur Ctrl+C pour terminer le script${NC}"
 echo -e "${BLUE}Les applications tournent maintenant en arrière-plan${NC}"
 
 # Garder le script en vie
