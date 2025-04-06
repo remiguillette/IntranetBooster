@@ -159,6 +159,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Mettre à jour l'image de profil de l'utilisateur
+  app.post("/api/user/profile-image", requireAuth, async (req, res) => {
+    try {
+      const { profileImage } = req.body;
+      
+      if (!profileImage) {
+        return res.status(400).json({ message: "Image de profil manquante" });
+      }
+      
+      const updatedUser = await storage.updateUserProfileImage(
+        req.session.userId as number,
+        profileImage
+      );
+      
+      if (!updatedUser) {
+        return res.status(404).json({ message: "Utilisateur non trouvé" });
+      }
+      
+      // Return user info (excluding password)
+      const { password, ...userInfo } = updatedUser;
+      return res.status(200).json(userInfo);
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Une erreur est survenue lors de la mise à jour de l'image de profil" 
+      });
+    }
+  });
+
   // Get applications
   app.get("/api/applications", requireAuth, async (req, res) => {
     try {

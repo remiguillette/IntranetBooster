@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -7,13 +7,57 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Camera, Upload, User } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<string | null>(user?.profileImage || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Effet pour mettre à jour l'image de profil quand l'utilisateur change
+  useEffect(() => {
+    if (user?.profileImage) {
+      setProfileImage(user.profileImage);
+    }
+  }, [user]);
+  
+  // Mutation pour mettre à jour l'image de profil
+  const updateProfileImageMutation = useMutation({
+    mutationFn: async (profileImage: string) => {
+      const res = await fetch('/api/user/profile-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ profileImage }),
+        credentials: 'include',
+      });
+      
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Erreur lors de la mise à jour de l'image de profil");
+      }
+      
+      return res.json();
+    },
+    onSuccess: (data) => {
+      // Mettre à jour l'utilisateur dans le contexte d'authentification
+      setUser(data);
+      toast({
+        title: "Succès",
+        description: "Votre photo de profil a été mise à jour avec succès.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: error instanceof Error ? error.message : "Une erreur est survenue lors de la mise à jour de l'image de profil",
+      });
+    },
+  });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -41,11 +85,11 @@ export default function Profile() {
       // Créer une URL pour prévisualiser l'image
       const reader = new FileReader();
       reader.onload = (e) => {
-        setProfileImage(e.target?.result as string);
-        toast({
-          title: "Image téléchargée",
-          description: "Votre photo de profil a été mise à jour."
-        });
+        const imageData = e.target?.result as string;
+        setProfileImage(imageData);
+        
+        // Envoyer l'image au serveur
+        updateProfileImageMutation.mutate(imageData);
       };
       reader.readAsDataURL(file);
     }

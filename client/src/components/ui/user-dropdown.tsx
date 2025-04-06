@@ -53,9 +53,19 @@ export default function UserDropdown({ user }: UserDropdownProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="flex items-center space-x-2 text-gray-200 hover:text-[#f89422]">
-          <span className="h-8 w-8 rounded-full bg-[#f89422] flex items-center justify-center text-white">
-            {user.initials}
-          </span>
+          {user.profileImage ? (
+            <div className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#f89422]">
+              <img 
+                src={user.profileImage} 
+                alt={user.initials} 
+                className="h-full w-full object-cover" 
+              />
+            </div>
+          ) : (
+            <span className="h-8 w-8 rounded-full bg-[#f89422] flex items-center justify-center text-white">
+              {user.initials}
+            </span>
+          )}
           <span className="hidden md:block">{user.displayName}</span>
           <ChevronDown className="h-5 w-5" />
         </Button>

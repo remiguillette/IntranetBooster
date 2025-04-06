@@ -13,6 +13,7 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  updateUserProfileImage(userId: number, profileImage: string): Promise<User | undefined>;
   
   // Application operations
   getApplications(): Promise<Application[]>;
@@ -117,9 +118,18 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.userIdCounter++;
-    const user: User = { ...insertUser, id };
+    const user: User = { ...insertUser, id, profileImage: null };
     this.users.set(id, user);
     return user;
+  }
+  
+  async updateUserProfileImage(userId: number, profileImage: string): Promise<User | undefined> {
+    const user = await this.getUser(userId);
+    if (!user) return undefined;
+    
+    const updatedUser = { ...user, profileImage };
+    this.users.set(userId, updatedUser);
+    return updatedUser;
   }
   
   // Application methods
