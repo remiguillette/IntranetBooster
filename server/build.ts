@@ -11,9 +11,10 @@ const buildServer = async () => {
       outdir: "dist",
       platform: "node",
       target: "node18",
-      format: "esm",
+      format: "cjs",
       bundle: true,
       packages: "external",
+      outExtension: { '.js': '.cjs' },
     });
     console.log("Build completed successfully");
   } catch (error) {
