@@ -32,10 +32,10 @@ export default function Dashboard() {
       {/* Header with navigation */}
       <header className="bg-[#1E1E1E] shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
-              <img src={beaverImage} alt="Beaver Mascot" className="h-10 w-10" />
-              <h1 className="text-3xl font-extrabold text-[#f89422] tracking-wide uppercase">BEAVERNET</h1>
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center space-x-4">
+              <img src={beaverImage} alt="Beaver Mascot" className="h-16 w-auto" />
+              <h1 className="text-6xl font-extrabold text-[#f89422] tracking-wide uppercase">BEAVERNET</h1>
             </div>
             
             {user && <UserDropdown user={user} />}
