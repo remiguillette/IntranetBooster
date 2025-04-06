@@ -88,7 +88,7 @@ export class MemStorage implements IStorage {
       {
         name: "PaymentNoir",
         description: "Système de paiement sécurisé",
-        port: 80,
+        port: 5173,
         icon: "credit-card"
       },
     ];
