@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
@@ -25,10 +24,6 @@ export default defineConfig({
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
-  },
-  server: {
-    host: '0.0.0.0',
-    allowedHosts: 'all'
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {

@@ -1,5 +1,5 @@
 modules = ["nodejs-20", "web", "bash"]
-run = "npm run dev"
+run = "chmod +x ./run_all.sh && npm run dev && bash ./run_all.sh"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
@@ -7,7 +7,8 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npm run dev "]
+build = ["sh", "-c", "chmod +x ./run_all.sh && bash ./run_all.sh"]
 
 [[ports]]
 localPort = 5000
