@@ -76,10 +76,9 @@ export default function Login() {
           <img 
             src={beaverLogo} 
             alt="Beaver mascot" 
-            className="w-32 h-auto mb-4"
+            className="w-80 h-auto mb-4"
           />
           <h1 className="text-5xl font-extrabold tracking-wide text-[#f89422] uppercase">BEAVERNET</h1>
-          <p className="mt-2 text-gray-300">Portail intranet</p>
         </div>
         
         {/* Login form */}
