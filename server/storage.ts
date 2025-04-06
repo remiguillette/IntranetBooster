@@ -76,7 +76,7 @@ export class MemStorage implements IStorage {
       {
         name: "BeaverTracker",
         description: "Suivi géographique",
-        port: 5000, 
+        port: 5000,
         icon: "map-pin"
       },
       {
