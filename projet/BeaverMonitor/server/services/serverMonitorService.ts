@@ -30,11 +30,20 @@ export async function monitorServer(): Promise<ServerStatus[]> {
       }
     }
     
-    // Get the actual active ports using 'netstat' command
-    const { stdout: netstatOutput } = await execAsync('netstat -tlnp 2>/dev/null | grep LISTEN');
-    
-    // Parse netstat output to extract port information
-    const portInfos = parseNetstatOutput(netstatOutput);
+    let portInfos = [];
+    try {
+      // Get the actual active ports using 'netstat' command
+      const { stdout: netstatOutput } = await execAsync('netstat -tlnp 2>/dev/null | grep LISTEN');
+      portInfos = parseNetstatOutput(netstatOutput);
+    } catch (error) {
+      console.error('Error getting port info:', error);
+      // Fallback to checking common ports
+      portInfos = [
+        { port: 3000, pid: process.pid, program: 'node' },
+        { port: 3001, pid: process.pid, program: 'node' },
+        { port: 5000, pid: process.pid, program: 'node' }
+      ];
+    }
     
     // Check each port and collect status information
     const serverStatuses: ServerStatus[] = [];
