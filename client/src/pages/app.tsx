@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth";
@@ -11,9 +11,6 @@ export default function AppPage() {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const params = useParams<{ port: string }>();
   const port = params.port;
-  
-  // État pour suivre le chargement de l'application
-  const [iframeLoading, setIframeLoading] = useState(true);
   
   // Rechercher l'application correspondant au port
   const { data: applications, isLoading: appsLoading } = useQuery<Application[]>({
@@ -29,11 +26,6 @@ export default function AppPage() {
       window.location.href = "/dashboard";
     }
   }, [port, authLoading, isAuthenticated]);
-  
-  // Gérer le chargement de l'iframe
-  const handleIframeLoad = () => {
-    setIframeLoading(false);
-  };
   
   if (authLoading || appsLoading) {
     return (
@@ -88,19 +80,19 @@ export default function AppPage() {
       </header>
       
       <main className="flex-grow container mx-auto p-4">
-        <div className="bg-[#1E1E1E] rounded-lg shadow-lg overflow-hidden h-[calc(100vh-8rem)]">
-          {iframeLoading && (
-            <div className="flex items-center justify-center h-full">
-              <Loader2 className="h-8 w-8 animate-spin text-[#f89422]" />
+        <div className="bg-[#1E1E1E] rounded-lg shadow-lg p-8 h-[calc(100vh-8rem)] flex flex-col items-center justify-center">
+          <div className="text-6xl mb-6">🦫</div>
+          <h1 className="text-3xl font-bold mb-6 text-[#f89422]">{application.name}</h1>
+          <div className="max-w-2xl text-center">
+            <p className="text-xl text-gray-300 mb-4">{application.description}</p>
+            <p className="text-gray-400 mb-8">Cette application serait normalement accessible sur le port {port}.</p>
+            <div className="p-6 bg-[#121212] rounded-lg border border-gray-700 mb-8">
+              <h3 className="text-xl font-semibold text-[#f89422] mb-4">Statut de l'application</h3>
+              <p className="text-gray-300">L'application est protégée par le système d'authentification Beavernet.</p>
+              <p className="text-gray-300 mt-2">Utilisateur connecté: {isAuthenticated ? "Oui ✅" : "Non ⛔"}</p>
             </div>
-          )}
-          
-          <iframe 
-            src={`/proxy/${port}`}
-            className="w-full h-full border-0"
-            onLoad={handleIframeLoad}
-            style={{ display: iframeLoading ? 'none' : 'block' }}
-          />
+            <p className="text-gray-400 text-sm">Dans un environnement de production, cette page servirait de proxy vers l'application réelle.</p>
+          </div>
         </div>
       </main>
     </div>

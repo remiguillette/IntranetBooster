@@ -33,8 +33,8 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
     }
   };
   
-  // Construire l'URL sécurisée via notre proxy d'authentification
-  const appUrl = `/proxy/${application.port}`;
+  // Rediriger vers notre page simulée d'application
+  const appUrl = `/app/${application.port}`;
   
   return (
     <a 
