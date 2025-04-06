@@ -8,7 +8,7 @@ channel = "stable-24_05"
 [deployment]
 deploymentTarget = "autoscale"
 run = ["sh", "-c", "node dist/server/index.js"]
-build = ["sh", "-c", "npm install && node server/build.ts"]
+build = ["sh", "-c", "npx tsc && node -r ts-node/register server/build.ts"]
 
 [[ports]]
 localPort = 5000
