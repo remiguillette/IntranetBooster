@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useQuery, QueryFunction } from "@tanstack/react-query";
 import { User } from "@shared/schema";
 
-type AuthUser = Omit<User, "password">;
+type AuthUser = Omit<User, "password"> & {
+  role?: string;
+};
 
 interface AuthContextType {
   user: AuthUser | null;
