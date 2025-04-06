@@ -33,12 +33,20 @@ export class MemStorage implements IStorage {
     this.userIdCounter = 1;
     this.appIdCounter = 1;
     
-    // Initialize with a default user
+    // Initialize with default users
     this.createUser({
       username: "admin@beavernet.fr",
       password: "password",
       displayName: "Jean Dupont",
       initials: "JD"
+    });
+    
+    // Ajouter l'utilisateur remiguillette comme utilisateur par défaut
+    this.createUser({
+      username: "remiguillette@gmail.com",
+      password: "password", // Vous pourrez changer ce mot de passe si nécessaire
+      displayName: "Remi Guillette",
+      initials: "RG"
     });
     
     // Initialize with our actual applications
@@ -83,7 +91,7 @@ export class MemStorage implements IStorage {
         name: "BeaverScanner",
         description: "Scanner de plaques d'immatriculation",
         port: 4200,
-        icon: "scan"
+        icon: "car"
       },
       {
         name: "PaymentNoir",

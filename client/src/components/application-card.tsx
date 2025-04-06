@@ -26,6 +26,8 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
         return <Icons.Users className="h-6 w-6 text-white" />;
       case 'credit-card':
         return <Icons.CreditCard className="h-6 w-6 text-white" />;
+      case 'car':
+        return <Icons.Car className="h-6 w-6 text-white" />;
       default:
         return <Icons.Webhook className="h-6 w-6 text-white" />;
     }
