@@ -126,14 +126,20 @@ export default function ServerMonitoringPanel() {
 
     if (isServerStatusError || !serverStatusData || !Array.isArray(serverStatusData)) {
       return (
-        <div className="flex flex-col items-center justify-center p-4">
-          <div className="text-red-500 mb-2">Impossible de charger les données des serveurs.</div>
-          <button 
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-          >
-            Réessayer
-          </button>
+        <div className="bg-[#1e1e1e] p-4 rounded-lg border border-[#333333]">
+          <h2 className="text-2xl text-white font-bold flex items-center mb-4">
+            <Server className="text-primary mr-2" />
+            Status Serveur
+          </h2>
+          <div className="flex flex-col items-center justify-center p-4 bg-black/20 rounded-lg">
+            <div className="text-red-500 mb-4 text-lg">Impossible de charger les données des serveurs.</div>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            >
+              Réessayer
+            </button>
+          </div>
         </div>
       );
     }
