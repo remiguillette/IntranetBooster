@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth";
+import beaverLogo from "@/assets/beaver.png";
 
 const loginSchema = z.object({
   username: z.string().email("Veuillez entrer une adresse e-mail valide"),
@@ -71,8 +72,13 @@ export default function Login() {
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[#121212]">
       <div className="w-full max-w-md">
         {/* Logo and header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-[#f89422]">Beavernet</h1>
+        <div className="text-center mb-8 flex flex-col items-center">
+          <img 
+            src={beaverLogo} 
+            alt="Beaver mascot" 
+            className="w-32 h-auto mb-4"
+          />
+          <h1 className="text-5xl font-extrabold tracking-wide text-[#f89422] uppercase">BEAVERNET</h1>
           <p className="mt-2 text-gray-300">Portail intranet</p>
         </div>
         
@@ -148,26 +154,9 @@ export default function Login() {
                 >
                   {loginMutation.isPending ? "Connexion..." : "Se connecter"}
                 </Button>
-                
-                <div className="text-center">
-                  <a 
-                    href="/register" 
-                    className="text-sm text-[#f89422] hover:underline"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setLocation("/register");
-                    }}
-                  >
-                    Vous n'avez pas de compte? S'inscrire
-                  </a>
-                </div>
               </div>
             </form>
           </Form>
-        </div>
-        
-        <div className="mt-6 text-center text-sm text-gray-400">
-          <p>© 2023 Beavernet - Tous droits réservés</p>
         </div>
       </div>
     </div>
