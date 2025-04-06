@@ -24,7 +24,10 @@ export function startServices() {
 
     const child = spawn('node', ['dist/index.js'], {
       cwd: projectPath,
-      env,
+      env: {
+        ...env,
+        HOST: '0.0.0.0'  // Ensure binding to all interfaces
+      },
       stdio: 'pipe'
     });
 
