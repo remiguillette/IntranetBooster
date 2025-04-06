@@ -4,13 +4,13 @@ import { spawn } from "child_process";
 import path from "path";
 
 const services = [
-  { name: "BeaverLaw5002", port: 3000 },
-  { name: "BeaverMonitor", port: 3001 },
-  { name: "BeavernetCRM", port: 3002 },
-  { name: "BeaverPatch", port: 3003 },
-  { name: "BeaverScanner", port: 4200 },
-  { name: "BeaverTracker", port: 5173 },
-  { name: "PaymentNoir", port: 6000 }
+  { name: "BeaverLaw5002", port: 5003 },
+  { name: "BeaverMonitor", port: 5009 },
+  { name: "BeavernetCRM", port: 5004 },
+  { name: "BeaverPatch", port: 5002 },
+  { name: "BeaverScanner", port: 5006 },
+  { name: "BeaverTracker", port: 5005 },
+  { name: "PaymentNoir", port: 5007 }
 ];
 
 export function startServices() {
