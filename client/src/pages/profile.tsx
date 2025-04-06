@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Camera, Upload, User } from "lucide-react";
+import { ArrowLeft, Camera, Upload, User, Loader2 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 
 export default function Profile() {
@@ -72,12 +72,13 @@ export default function Profile() {
         return;
       }
 
-      // Vérifier la taille du fichier (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
+      // Vérifier la taille du fichier (max 10MB pour correspondre à la limite serveur)
+      const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB en octets
+      if (file.size > MAX_FILE_SIZE) {
         toast({
           variant: "destructive",
-          title: "Erreur",
-          description: "L'image est trop volumineuse. Taille maximale: 5MB."
+          title: "Image trop volumineuse",
+          description: `L'image dépasse la limite de 10 Mo. Veuillez la redimensionner ou choisir une image plus légère.`
         });
         return;
       }
@@ -89,7 +90,27 @@ export default function Profile() {
         setProfileImage(imageData);
         
         // Envoyer l'image au serveur
-        updateProfileImageMutation.mutate(imageData);
+        toast({
+          title: "Téléchargement en cours",
+          description: "Veuillez patienter pendant le téléchargement de votre image...",
+        });
+        
+        updateProfileImageMutation.mutate(imageData, {
+          onSuccess: () => {
+            toast({
+              title: "Photo mise à jour",
+              description: "Votre photo de profil a été enregistrée avec succès!",
+              variant: "default",
+            });
+          },
+          onError: () => {
+            toast({
+              variant: "destructive",
+              title: "Erreur",
+              description: "Impossible de sauvegarder l'image. Veuillez réessayer.",
+            });
+          }
+        });
       };
       reader.readAsDataURL(file);
     }
@@ -124,7 +145,7 @@ export default function Profile() {
             <CardHeader>
               <CardTitle className="text-[#f89422]">Photo de profil</CardTitle>
               <CardDescription className="text-gray-400">
-                Téléchargez votre photo de profil
+                Téléchargez votre photo de profil (JPG, PNG - max 10 Mo)
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center">
@@ -145,8 +166,12 @@ export default function Profile() {
                 <button 
                   onClick={triggerFileInput}
                   className="absolute bottom-0 right-0 bg-[#f89422] p-2 rounded-full"
+                  disabled={updateProfileImageMutation.isPending}
                 >
-                  <Camera className="h-5 w-5 text-white" />
+                  {updateProfileImageMutation.isPending ? 
+                    <Loader2 className="h-5 w-5 text-white animate-spin" /> :
+                    <Camera className="h-5 w-5 text-white" />
+                  }
                 </button>
               </div>
               
@@ -162,9 +187,19 @@ export default function Profile() {
                 onClick={triggerFileInput}
                 variant="outline" 
                 className="mt-2 border-gray-700 hover:bg-[#2D2D2D] hover:text-[#f89422]"
+                disabled={updateProfileImageMutation.isPending}
               >
-                <Upload className="mr-2 h-4 w-4" />
-                Changer la photo
+                {updateProfileImageMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Téléchargement...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="mr-2 h-4 w-4" />
+                    Changer la photo
+                  </>
+                )}
               </Button>
             </CardContent>
           </Card>
