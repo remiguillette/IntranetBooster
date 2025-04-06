@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth";
 import { Application } from "@/types/application";
 import ApplicationCard from "@/components/application-card";
 import UserDropdown from "@/components/ui/user-dropdown";
+import beaverImage from "../assets/beaver.png";
 
 export default function Dashboard() {
   const [, setLocation] = useLocation();
@@ -32,8 +33,9 @@ export default function Dashboard() {
       <header className="bg-[#1E1E1E] shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-[#f89422]">Beavernet</h1>
+            <div className="flex items-center space-x-3">
+              <img src={beaverImage} alt="Beaver Mascot" className="h-10 w-10" />
+              <h1 className="text-3xl font-extrabold text-[#f89422] tracking-wide uppercase">BEAVERNET</h1>
             </div>
             
             {user && <UserDropdown user={user} />}
@@ -69,28 +71,6 @@ export default function Dashboard() {
           )}
         </div>
       </main>
-      
-      {/* Footer */}
-      <footer className="bg-[#1E1E1E] py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-center md:text-left mb-4 md:mb-0">
-              <p className="text-sm text-gray-400">© 2023 Beavernet - Tous droits réservés</p>
-            </div>
-            <div className="flex space-x-6">
-              <a href="#" className="text-sm text-gray-400 hover:text-[#f89422]">
-                Aide
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-[#f89422]">
-                Confidentialité
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-[#f89422]">
-                Conditions d'utilisation
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
