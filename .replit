@@ -7,8 +7,8 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["sh", "-c", "npm run dev "]
-build = ["sh", "-c", "chmod +x ./run_all.sh && bash ./run_all.sh"]
+run = ["sh", "-c", "chmod +x ./start_all.sh && bash ./start_all.sh && npm run dev  "]
+build = ["sh", "-c", "chmod +x ./build_all.sh && bash ./build_all.sh"]
 
 [[ports]]
 localPort = 5000
