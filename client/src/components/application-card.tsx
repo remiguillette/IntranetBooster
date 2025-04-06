@@ -33,8 +33,12 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
     }
   };
   
-  // Rediriger vers notre page simulée d'application
-  const appUrl = `/app/${application.port}`;
+  // Form URL with port
+  // Extract protocol and hostname without port from the current URL
+  const protocol = window.location.protocol;
+  const hostname = window.location.hostname;
+  // Build URL using the application's specific port
+  const appUrl = `${protocol}//${hostname}:${application.port}`;
   
   return (
     <a 
