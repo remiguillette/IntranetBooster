@@ -6,6 +6,7 @@ import { loginSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 import { fromZodError } from "zod-validation-error";
 import MemoryStoreFactory from "memorystore";
+import { createAuthenticatedProxy } from "./proxy";
 
 // Extend the Express session with our user ID
 declare module 'express-session' {
@@ -212,91 +213,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Application non trouvée" });
       }
       
-      // Simulate application access
-      return res.send(`
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>${application.name} - Beavernet</title>
-          <style>
-            body {
-              font-family: 'Roboto', sans-serif;
-              background-color: #121212;
-              color: #f89422;
-              margin: 0;
-              padding: 0;
-              display: flex;
-              flex-direction: column;
-              min-height: 100vh;
-            }
-            header {
-              background-color: #1E1E1E;
-              padding: 1rem;
-              box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            }
-            .container {
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 2rem;
-              flex-grow: 1;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              text-align: center;
-            }
-            h1 {
-              color: #f89422;
-              margin-bottom: 1rem;
-            }
-            p {
-              color: #e0e0e0;
-              margin-bottom: 2rem;
-            }
-            .btn {
-              background-color: #f89422;
-              color: white;
-              border: none;
-              padding: 0.75rem 1.5rem;
-              border-radius: 0.25rem;
-              text-decoration: none;
-              font-weight: 500;
-              transition: background-color 0.2s;
-            }
-            .btn:hover {
-              background-color: #e07c10;
-            }
-            .icon {
-              font-size: 5rem;
-              margin-bottom: 2rem;
-            }
-          </style>
-        </head>
-        <body>
-          <header>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h2>Beavernet</h2>
-              <a href="/dashboard" class="btn">Retour au tableau de bord</a>
-            </div>
-          </header>
-          <div class="container">
-            <div class="icon">🚧</div>
-            <h1>${application.name}</h1>
-            <p>${application.description}</p>
-            <p>Cette application fonctionnerait normalement sur le port ${application.port}.</p>
-            <p>Pour des raisons de sécurité et d'architecture, nous simulons l'accès à cette application.</p>
-          </div>
-        </body>
-        </html>
-      `);
+      // Redirection vers le proxy sécurisé
+      return res.redirect(`/proxy/${application.port}`);
     } catch (error) {
       return res.status(500).json({ 
         message: "Une erreur est survenue lors de l'accès à l'application" 
       });
     }
   });
+  
+  // Configurer les proxys pour chaque port d'application
+  app.get("/applications/proxies", requireAuth, async (req, res) => {
+    try {
+      const applications = await storage.getApplications();
+      const ports = [...new Set(applications.map(app => app.port))];
+      return res.json({ 
+        message: "Proxies configurés pour les ports",
+        ports 
+      });
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Une erreur est survenue lors de la récupération des proxies" 
+      });
+    }
+  });
+  
+  // Configurer les proxys pour tous les ports d'applications
+  const setupProxies = async () => {
+    try {
+      const applications = await storage.getApplications();
+      const ports = [...new Set(applications.map(app => app.port))];
+      
+      for (const port of ports) {
+        if (port !== 5000) { // Ne pas créer de proxy pour notre port principal
+          app.use(`/proxy/${port}`, ...createAuthenticatedProxy(port));
+          console.log(`Proxy configuré pour le port ${port}`);
+        }
+      }
+    } catch (error) {
+      console.error("Erreur lors de la configuration des proxys:", error);
+    }
+  };
+  
+  // Appeler la fonction pour configurer les proxys
+  setupProxies();
 
   const httpServer = createServer(app);
   return httpServer;
