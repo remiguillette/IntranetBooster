@@ -45,7 +45,7 @@ export class MemStorage implements IStorage {
     // Ajouter l'utilisateur remiguillette comme utilisateur par défaut
     this.createUser({
       username: "remiguillette@gmail.com",
-      password: "password", // Vous pourrez changer ce mot de passe si nécessaire
+      password: "MC44rg99qc@", // Vous pourrez changer ce mot de passe si nécessaire
       displayName: "Remi Guillette",
       initials: "RG"
     });
