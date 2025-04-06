@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { startServices } from './start-services';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
 // Augmenter la limite de taille pour les requêtes JSON à 10MB pour permettre les images
