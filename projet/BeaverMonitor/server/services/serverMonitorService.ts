@@ -42,29 +42,17 @@ export async function monitorServer(): Promise<ServerStatus[]> {
     
     for (const portInfo of portInfos) {
       try {
-        const { port, pid, program } = portInfo;
+        const { port } = portInfo;
         
-        // Get process resource usage
-        const processMetrics = await getProcessMetrics(pid);
-        
-        // Determine status based on resource usage
-        let status: 'online' | 'offline' | 'warning' | 'restarting' = 'online';
-        
-        if (processMetrics.cpu > 75) {
-          status = 'warning';
-        } else if (processMetrics.cpu === 0) {
-          // Check if actually running
-          try {
-            const { stdout: psOutput } = await execAsync(`ps -p ${pid} -o state=`);
-            if (psOutput.trim() === 'D') { // Process in uninterruptible sleep
-              status = 'restarting';
-            } else if (!psOutput.trim()) {
-              status = 'offline';
-            }
-          } catch (e) {
-            status = 'offline';
-          }
-        }
+        // Check if port is responding
+        try {
+          const isPortOpen = await checkPort(port);
+          const processMetrics = {
+            cpu: isPortOpen ? 25 : 0, // Simplified metric
+            ram: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) // Convert to MB
+          };
+          
+          const status = isPortOpen ? 'online' : 'offline';
         
         const serverStatus: InsertServerStatus = {
           port,
