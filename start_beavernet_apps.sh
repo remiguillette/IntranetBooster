@@ -10,6 +10,10 @@ NC='\033[0m' # No Color
 
 echo -e "${ORANGE}=== Démarrage des applications Beavernet ===${NC}"
 echo -e "${BLUE}Ce script va démarrer toutes les sous-applications du dossier 'projet'${NC}"
+echo -e "${YELLOW}Note: Assurez-vous que toutes les dépendances ont déjà été installées${NC}"
+
+# Créer le dossier logs s'il n'existe pas
+mkdir -p logs
 
 # Fonction pour démarrer une application
 start_app() {
