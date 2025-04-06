@@ -61,7 +61,10 @@ export default function UserDropdown({ user }: UserDropdownProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-[#1E1E1E] text-gray-200 border-gray-700">
-        <DropdownMenuItem className="hover:bg-[#2D2D2D]">
+        <DropdownMenuItem 
+          onClick={() => setLocation("/profile")} 
+          className="hover:bg-[#2D2D2D] cursor-pointer"
+        >
           Mon profil
         </DropdownMenuItem>
         <DropdownMenuItem className="hover:bg-[#2D2D2D]">
