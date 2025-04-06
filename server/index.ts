@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { startServices } from './start-services';
 
 const app = express();
 // Augmenter la limite de taille pour les requêtes JSON à 10MB pour permettre les images
@@ -55,6 +56,11 @@ app.use((req, res, next) => {
     await setupVite(app, server);
   } else {
     serveStatic(app);
+  }
+
+  // Start sub-applications in production
+  if (process.env.NODE_ENV === 'production') {
+    startServices();
   }
 
   // ALWAYS serve the app on port 5000
