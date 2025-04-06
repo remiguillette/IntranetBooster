@@ -60,6 +60,7 @@ app.use((req, res, next) => {
 
   // Start sub-applications in production
   if (process.env.NODE_ENV === 'production') {
+    log('Starting services in production mode...');
     startServices();
   }
 
