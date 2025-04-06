@@ -26,7 +26,11 @@ export function startServices() {
       cwd: projectPath,
       env: {
         ...env,
-        HOST: '0.0.0.0'  // Ensure binding to all interfaces
+        HOST: '0.0.0.0',
+        PORT: service.port.toString(),
+        ADDRESS: '0.0.0.0',
+        HOSTNAME: '0.0.0.0',
+        BIND_ADDRESS: '0.0.0.0'
       },
       stdio: 'pipe'
     });
