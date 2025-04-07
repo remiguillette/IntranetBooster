@@ -1,0 +1,26 @@
+1. Importing icons:
+
+Check the import: Make sure all the icons you use are correctly imported from lucide-react. For example:
+JavaScript
+
+import { LayoutDashboard, Cat, ScanLine, Users, Signature, Nfc, MonitorCog, IdCard, AppWindow } from "lucide-react";
+If an icon isn't imported, it won't be displayed.
+Icon names: Check that the icon names in your iconMap exactly match the names of the components imported from lucide-react (case-sensitive). For example, make sure it's Icons.Cat and not Icons.cat.
+2. Application data:
+
+Incorrect application.name: The key used in the iconMap (application.name) must exactly match the application name as passed to your ApplicationCard component. If the case or spelling don't match (e.g., "Beaverlaw" instead of "BeaverLaw"), the default icon (<Icons.AppWindow />) will be displayed.
+Check the application object structure: Make sure the application object passed to the component contains a name property with the expected value ("BeaverLaw", "BeaverPatch", etc.). You can run a console.log(application) in your parent component to inspect the data.
+3. Conditional Rendering:
+
+No default rendering: If none of the keys in iconMap match application.name, and you have commented out or removed the line || <Icons.AppWindow className="h-6 w-6 text-white" />, then no icon will be rendered in this case. Make sure you have a default icon for unsupported cases. 4. CSS Issues:
+
+Visibility: Although the code specifies a white color (text-white), check that there are no other CSS styles (inherited or specific) that could make the icon invisible (e.g., a white background color on the parent element).
+Zero Size: Check that the size (h-6 w-6) is not overridden by other styles, which could make the icon invisible. Inspect the element in your browser's developer tools.
+5. JavaScript Errors:
+
+Silent Errors: Although less likely in this simple case, there could be other JavaScript errors in your application that are preventing the component from rendering correctly. Open your browser's console to check for errors. To diagnose the BeaverLaw-specific issue and the cat icon:
+
+Inspect the application.name value: In the parent component that renders the ApplicationCard for BeaverLaw, add a console.log(application.name) just before passing the application object to the component. Make sure the value is exactly "BeaverLaw".
+Check the Cat import: Make sure you have the line import { Cat } from "lucide-react"; at the top of your file.
+Examine the rendered element: Use your browser's developer tools (Inspect Element) to examine the div with the class w-12 h-12 bg-[#f89422] rounded-lg flex items-center justify-center mb-4 for the BeaverLaw application. Check if the Cat icon SVG element is present inside it. If it isn't, this indicates an issue with the renderIcon logic. If it's there, check its styles (color, size, visibility).
+By following these steps, you should be able to identify the reason why the chat icon isn't displaying for BeaverLaw. The problem is most likely a typo in the app name or an import error.
