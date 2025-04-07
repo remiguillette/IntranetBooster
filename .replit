@@ -1,15 +1,14 @@
+# Configuration de base du module
 modules = ["nodejs-20", "web", "bash"]
-run = "chmod +x ./run_all.sh && npm run dev && bash ./run_all.sh"
+
+# Fichiers cachés (inchangé)
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
+# Configuration Nix (inchangé)
 [nix]
 channel = "stable-24_05"
 
-[deployment]
-deploymentTarget = "autoscale"
-run = ["sh", "-c", "npm run start"]
-build = ["sh", "-c", "chmod +x ./build_all.sh && bash ./build_all.sh"]
-
+# Configuration des ports
 [[ports]]
 localPort = 5000
 externalPort = 80
@@ -42,6 +41,14 @@ externalPort = 5000
 localPort = 5009
 externalPort = 3001
 
+# Configuration du déploiement
+[deployment]
+# Commande pour construire l'application (s'assure que le dossier 'dist' est créé)
+build = ["sh", "-c", "npm run build"]
+# Commande pour démarrer l'application en production (après la construction)
+run = ["sh", "-c", "npm run start"]
+
+# Configuration des workflows
 [workflows]
 runButton = "Project"
 
@@ -52,10 +59,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Start application"
+args = "Build and start application"
 
 [[workflows.workflow]]
-name = "Start application"
+name = "Build and start application"
 author = "agent"
 
 [workflows.workflow.metadata]
@@ -66,5 +73,5 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "npm run build && npm run start"
 waitForPort = 5000

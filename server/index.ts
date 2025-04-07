@@ -1,8 +1,7 @@
-import express, { type Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { startServices } from './start-services';
-import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
 // Augmenter la limite de taille pour les requêtes JSON à 10MB pour permettre les images
@@ -67,24 +66,6 @@ app.use((req, res, next) => {
 
   const port = process.env.PORT || 5000;
 
-  // Set up reverse proxy routes
-  app.use('/beaverlaw', createProxyMiddleware({ 
-    target: 'http://0.0.0.0:5003',
-    changeOrigin: true
-  }));
-  
-  app.use('/beavermonitor', createProxyMiddleware({ 
-    target: 'http://0.0.0.0:5009',
-    changeOrigin: true
-  }));
-
-  app.use('/beavercrm', createProxyMiddleware({ 
-    target: 'http://0.0.0.0:5004',
-    changeOrigin: true
-  }));
-
-  // Add other services similarly
-  
   server.listen({
     port,
     host: "0.0.0.0",
