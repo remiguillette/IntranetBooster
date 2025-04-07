@@ -54,50 +54,42 @@ export class MemStorage implements IStorage {
       {
         name: "BeaverPatch",
         description: "CAD system",
-        port: 5001,
-        icon: "LayoutDashboard"
+        port: 5001
       },
       {
         name: "BeaverLaw",
         description: "Contrôles Animalier",
-        port: 5002,
-        icon: "Cat"
+        port: 5002
       },
       {
         name: "BeaverScanner",
         description: "lecture automatisée de plaques d'immatriculation",
-        port: 5003,
-        icon: "ScanLine"
+        port: 5003
       },
       {
         name: "BeavernetCRM",
         description: "Gestion des clients",
-        port: 5004,
-        icon: "Users"
+        port: 5004
       },
       {
         name: "BeaverDoc",
         description: "Surveillance des document",
-        port: 5005,
-        icon: "FileSignature"
+        port: 5005
       },
       {
         name: "BeaverPay",
         description: "Système de paiement sécurisé", 
-        port: 5006,
-        icon: "CreditCard"
+        port: 5006
       },
       {
         name: "BeaverMonitor",
         description: "Information",
-        port: 5007,
-        icon: "MonitorDot"
+        port: 5007
       },
       {
         name: "BeaverDMV",
         description: "Vérification du permis de conduire",
-        port: 5008,
-        icon: "IdCard"
+        port: 5008
       },
     ];
 
