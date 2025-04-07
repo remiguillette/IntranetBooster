@@ -1,4 +1,3 @@
-
 import { Application } from "@/types/application";
 import { Card, CardContent } from "@/components/ui/card";
 
