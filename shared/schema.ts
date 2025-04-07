@@ -1,3 +1,4 @@
+
 import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -16,7 +17,6 @@ export const applications = pgTable("applications", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   port: integer("port").notNull(),
-  icon: text("icon").notNull(),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
