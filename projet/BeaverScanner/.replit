@@ -11,8 +11,8 @@ build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
 
 [[ports]]
-localPort = 5006
-externalPort = 3006
+localPort = 5003
+externalPort = 3003
 
 [workflows]
 runButton = "Project"
@@ -39,4 +39,4 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 5006
+waitForPort = 5003

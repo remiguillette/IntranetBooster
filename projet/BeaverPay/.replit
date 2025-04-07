@@ -10,8 +10,8 @@ deploymentTarget = "autoscale"
 run = ["sh", "-c", "npm run dev"]
 
 [[ports]]
-localPort = 5003
-externalPort = 3002
+localPort = 5006
+externalPort = 4200
 
 [workflows]
 runButton = "Project"
@@ -38,4 +38,4 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 5003
+waitForPort = 5006

@@ -45,7 +45,7 @@ export class MemStorage implements IStorage {
     // Ajouter l'utilisateur remiguillette comme utilisateur par défaut
     this.createUser({
       username: "remiguillette@gmail.com",
-      password: "password", // Vous pourrez changer ce mot de passe si nécessaire
+      password: "MC44rg99qc@", // Vous pourrez changer ce mot de passe si nécessaire
       displayName: "Remi Guillette",
       initials: "RG"
     });
@@ -53,52 +53,52 @@ export class MemStorage implements IStorage {
     // Initialize with our actual applications
     const defaultApps = [
       {
-        name: "Tableau de bord",
-        description: "Statistiques et rapports",
-        port: 80,
+        name: "BeaverPatch",
+        description: "CAD system",
+        port: 5001,
         icon: "layout-dashboard"
       },
       {
-        name: "BeaverLaw5002",
-        description: "Système de gestion juridique",
-        port: 3000,
-        icon: "scale"
+        name: "BeaverLaw",
+        description: "Contrôles Animalier",
+        port: 5002,
+        icon: "cat"
       },
       {
-        name: "BeaverPatch",
-        description: "Gestion des mises à jour",
-        port: 3003,
-        icon: "update"
+        name: "BeaverScanner",
+        description: "lecture automatisée de plaques d’immatriculation",
+        port: 5003,
+        icon: "scan-line"
       },
       {
         name: "BeavernetCRM",
         description: "Gestion des clients",
-        port: 3002,
+        port: 5004,
         icon: "users"
       },
       {
-        name: "BeaverMonitor",
-        description: "Surveillance des systèmes",
-        port: 3001,
-        icon: "activity"
-      },
-      {
         name: "BeaverDoc",
-        description: "Scanner de documents", 
-        port: 5000,
-        icon: "scan"
+        description: "Surveillance des document",
+        port: 5005,
+        icon: "signature"
       },
       {
-        name: "BeaverScanner",
-        description: "Scanner de plaques d'immatriculation",
-        port: 4200,
-        icon: "car"
+        name: "BeaverPay",
+        description: "Système de paiement sécurisé", 
+        port: 5006,
+        icon: "nfc"
       },
       {
-        name: "PaymentNoir",
-        description: "Système de paiement sécurisé",
-        port: 5173,
-        icon: "credit-card"
+        name: "BeaverMonitor",
+        description: "Information",
+        port: 5007,
+        icon: "monitor-cog"
+      },
+      {
+        name: "BeaverDMV",
+        description: "Vérification du permis de conduire",
+        port: 5008,
+        icon: "id-card"
       },
     ];
     
