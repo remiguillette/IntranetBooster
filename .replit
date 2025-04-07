@@ -1,5 +1,5 @@
 modules = ["nodejs-20", "web", "bash"]
-run = "npm run dev"
+run = "npm start"  # Changed for production
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
@@ -7,7 +7,7 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npm start"] # Changed for production
 
 [[ports]]
 localPort = 5000
@@ -65,5 +65,5 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "npm start" # Changed for production
 waitForPort = 5000
