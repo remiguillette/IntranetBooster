@@ -19,18 +19,18 @@ interface ApplicationCardProps {
 export default function ApplicationCard({ application }: ApplicationCardProps) {
   const renderIcon = () => {
     const iconComponents = {
-      'layout-dashboard': LayoutDashboard,
-      'cat': Cat,
-      'scan-line': ScanLine,
-      'users': Users,
-      'signature': Signature,
-      'nfc': Nfc,
-      'monitor-cog': MonitorCog,
-      'id-card': IdCard,
-      'app-window': AppWindow
+      'Layout-dashboard': LayoutDashboard,
+      'Cat': Cat,
+      'Scan-line': ScanLine,
+      'Users': Users,
+      'Signature': Signature,
+      'Nfc': Nfc,
+      'Monitor-cog': MonitorCog,
+      'Id-card': IdCard,
+      'App-window': AppWindow
     };
 
-    const IconComponent = iconComponents[application.icon] || AppWindow;
+    const IconComponent = iconComponents.hasOwnProperty(application.icon) ? iconComponents[application.icon] : AppWindow;
     return <IconComponent className="h-6 w-6 text-white" />;
   };
 
