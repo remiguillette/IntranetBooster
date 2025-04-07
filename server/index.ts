@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { startServices } from './start-services';
@@ -60,15 +60,17 @@ app.use((req, res, next) => {
 
   // Start sub-applications in production
   if (process.env.NODE_ENV === 'production') {
-    log('Starting services in production mode...');
     startServices();
   }
 
-  const port = process.env.PORT || 5000;
-
+  // ALWAYS serve the app on port 5000
+  // this serves both the API and the client.
+  // It is the only port that is not firewalled.
+  const port = 5000;
   server.listen({
     port,
     host: "0.0.0.0",
+    reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
   });

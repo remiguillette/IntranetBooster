@@ -1,48 +1,27 @@
 
-import { log } from "./vite";
-import { spawn } from "child_process";
-import path from "path";
+import { spawn } from 'child_process';
+import path from 'path';
 
-const services = [
-  { name: "BeaverLaw5002", port: 5003 },
-  { name: "BeaverMonitor", port: 5009 },
-  { name: "BeavernetCRM", port: 5004 },
-  { name: "BeaverPatch", port: 5002 },
-  { name: "BeaverScanner", port: 5006 },
-  { name: "BeaverTracker", port: 5005 },
-  { name: "PaymentNoir", port: 5007 }
+const PROJECTS = [
+  'BeaverLaw5002',
+  'BeaverPatch',
+  'BeaverMonitor',
+  'BeavernetCRM',
+  'BeaverDoc',
+  'BeaverScanner',
+  'PaymentNoir'
 ];
 
 export function startServices() {
-  services.forEach(service => {
-    const projectPath = path.join(process.cwd(), 'projet', service.name);
-    const env = {
-      ...process.env,
-      PORT: service.port.toString(),
-      NODE_ENV: 'production'
-    };
-
-    const child = spawn('node', ['dist/index.js'], {
+  PROJECTS.forEach(project => {
+    const projectPath = path.join(process.cwd(), 'projet', project);
+    const npm = spawn('npm', ['start'], {
       cwd: projectPath,
-      env: {
-        ...env,
-        HOST: '0.0.0.0',
-        PORT: service.port.toString(),
-        ADDRESS: '0.0.0.0',
-        HOSTNAME: '0.0.0.0',
-        BIND_ADDRESS: '0.0.0.0'
-      },
-      stdio: 'pipe'
+      stdio: 'inherit'
     });
 
-    child.stdout.on('data', (data) => {
-      log(`[${service.name}] ${data}`);
+    npm.on('error', (err) => {
+      console.error(`Failed to start ${project}:`, err);
     });
-
-    child.stderr.on('data', (data) => {
-      log(`[${service.name}] Error: ${data}`);
-    });
-
-    log(`Started ${service.name} on port ${service.port}`);
   });
 }
