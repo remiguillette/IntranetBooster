@@ -8,11 +8,15 @@ interface ApplicationCardProps {
 export default function ApplicationCard({ application }: ApplicationCardProps) {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
-  const appUrl = `${protocol}//${hostname}:${application.port}`;
+  const appUrl = application.name === "BeaverDMV" 
+    ? "https://www.dlc.rus.mto.gov.on.ca/dlc/fr/entrer-renseignements"
+    : `${protocol}//${hostname}:${application.port}`;
 
   return (
     <a 
-      href={appUrl} 
+      href={appUrl}
+      target={application.name === "BeaverDMV" ? "_blank" : "_self"} 
+      rel={application.name === "BeaverDMV" ? "noopener noreferrer" : ""}
       className="block transition-transform duration-200 hover:-translate-y-1"
     >
       <Card className="h-full bg-[#1E1E1E] border-none shadow-md hover:shadow-lg">
