@@ -13,8 +13,8 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
       'BeaverLaw': <Icons.Cat className="h-6 w-6 text-white" />,
       'BeaverScanner': <Icons.ScanLine className="h-6 w-6 text-white" />,
       'BeavernetCRM': <Icons.Users className="h-6 w-6 text-white" />,
-      'BeaverDoc': <Icons.FileText className="h-6 w-6 text-white" />,
-      'BeaverPay': <Icons.CreditCard className="h-6 w-6 text-white" />,
+      'BeaverDoc': <Icons.Signature className="h-6 w-6 text-white" />,
+      'BeaverPay': <Icons.Nfc className="h-6 w-6 text-white" />,
       'BeaverMonitor': <Icons.MonitorCog className="h-6 w-6 text-white" />,
       'BeaverDMV': <Icons.IdCard className="h-6 w-6 text-white" />
     };
