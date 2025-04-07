@@ -1,6 +1,6 @@
 import { Application } from "@/types/application";
 import { Card, CardContent } from "@/components/ui/card";
-import * as Icons from "lucide-react";
+import { LayoutDashboard, Cat, ScanLine, Users, Signature, Nfc, MonitorCog, IdCard, AppWindow } from "lucide-react";
 
 interface ApplicationCardProps {
   application: Application;
@@ -9,17 +9,17 @@ interface ApplicationCardProps {
 export default function ApplicationCard({ application }: ApplicationCardProps) {
   const renderIcon = () => {
     const iconMap = {
-      'BeaverPatch': <Icons.LayoutDashboard className="h-6 w-6 text-white" />,
-      'BeaverLaw': <Icons.Cat className="h-6 w-6 text-white" />,
-      'BeaverScanner': <Icons.ScanLine className="h-6 w-6 text-white" />,
-      'BeavernetCRM': <Icons.Users className="h-6 w-6 text-white" />,
-      'BeaverDoc': <Icons.Signature className="h-6 w-6 text-white" />,
-      'BeaverPay': <Icons.Nfc className="h-6 w-6 text-white" />,
-      'BeaverMonitor': <Icons.MonitorCog className="h-6 w-6 text-white" />,
-      'BeaverDMV': <Icons.IdCard className="h-6 w-6 text-white" />
+      'BeaverPatch': <LayoutDashboard className="h-6 w-6 text-white" />,
+      'BeaverLaw': <Cat className="h-6 w-6 text-white" />,
+      'BeaverScanner': <ScanLine className="h-6 w-6 text-white" />,
+      'BeavernetCRM': <Users className="h-6 w-6 text-white" />,
+      'BeaverDoc': <Signature className="h-6 w-6 text-white" />,
+      'BeaverPay': <Nfc className="h-6 w-6 text-white" />,
+      'BeaverMonitor': <MonitorCog className="h-6 w-6 text-white" />,
+      'BeaverDMV': <IdCard className="h-6 w-6 text-white" />
     };
     
-    return iconMap[application.name] || <Icons.AppWindow className="h-6 w-6 text-white" />;
+    return iconMap[application.name] || <AppWindow className="h-6 w-6 text-white" />;
   };
   
   // Form URL with port
