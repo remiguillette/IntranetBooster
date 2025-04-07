@@ -8,16 +8,20 @@ interface ApplicationCardProps {
 
 export default function ApplicationCard({ application }: ApplicationCardProps) {
   const renderIcon = () => {
-    const iconMap = {
-      'BeaverPatch': <LayoutDashboard className="h-6 w-6 text-white" />,
-      'BeaverLaw': <Cat className="h-6 w-6 text-white" />,
-      'BeaverScanner': <ScanLine className="h-6 w-6 text-white" />,
-      'BeavernetCRM': <Users className="h-6 w-6 text-white" />,
-      'BeaverDoc': <Signature className="h-6 w-6 text-white" />,
-      'BeaverPay': <Nfc className="h-6 w-6 text-white" />,
-      'BeaverMonitor': <MonitorCog className="h-6 w-6 text-white" />,
-      'BeaverDMV': <IdCard className="h-6 w-6 text-white" />
+    const iconComponents = {
+      'layout-dashboard': LayoutDashboard,
+      'cat': Cat,
+      'scan-line': ScanLine,
+      'users': Users,
+      'signature': Signature,
+      'nfc': Nfc,
+      'monitor-cog': MonitorCog,
+      'id-card': IdCard,
+      'app-window': AppWindow
     };
+    
+    const IconComponent = iconComponents[application.icon] || AppWindow;
+    return <IconComponent className="h-6 w-6 text-white" />;
     
     return iconMap[application.name] || <AppWindow className="h-6 w-6 text-white" />;
   };
