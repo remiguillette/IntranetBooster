@@ -7,28 +7,19 @@ interface ApplicationCardProps {
 }
 
 export default function ApplicationCard({ application }: ApplicationCardProps) {
-  // Get the icon using a simpler approach
   const renderIcon = () => {
-    switch(application.name) {
-      case 'BeaverPatch':
-        return <Icons.LayoutDashboard className="h-6 w-6 text-white" />;
-      case 'BeaverLaw':
-        return <Icons.Cat className="h-6 w-6 text-white" />;
-      case 'BeaverScanner':
-        return <Icons.ScanLine className="h-6 w-6 text-white" />;
-      case 'BeavernetCRM':
-        return <Icons.Users className="h-6 w-6 text-white" />;
-      case 'BeaverDoc':
-        return <Icons.Signature className="h-6 w-6 text-white" />;
-      case 'BeaverPay':
-        return <Icons.CreditCard className="h-6 w-6 text-white" />;
-      case 'BeaverMonitor':
-        return <Icons.MonitorCog className="h-6 w-6 text-white" />;
-      case 'BeaverDMV':
-        return <Icons.IdCard className="h-6 w-6 text-white" />;
-      default:
-        return <Icons.Webhook className="h-6 w-6 text-white" />;
-    }
+    const iconMap = {
+      'BeaverPatch': <Icons.LayoutDashboard className="h-6 w-6 text-white" />,
+      'BeaverLaw': <Icons.Cat className="h-6 w-6 text-white" />,
+      'BeaverScanner': <Icons.ScanLine className="h-6 w-6 text-white" />,
+      'BeavernetCRM': <Icons.Users className="h-6 w-6 text-white" />,
+      'BeaverDoc': <Icons.FileText className="h-6 w-6 text-white" />,
+      'BeaverPay': <Icons.CreditCard className="h-6 w-6 text-white" />,
+      'BeaverMonitor': <Icons.MonitorCog className="h-6 w-6 text-white" />,
+      'BeaverDMV': <Icons.IdCard className="h-6 w-6 text-white" />
+    };
+    
+    return iconMap[application.name] || <Icons.AppWindow className="h-6 w-6 text-white" />;
   };
   
   // Form URL with port
