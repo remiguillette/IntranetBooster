@@ -5,9 +5,9 @@ import {
   Cat, 
   ScanLine, 
   Users, 
-  Signature, 
-  Nfc, 
-  MonitorCog, 
+  FileSignature, 
+  CreditCard, 
+  MonitorDot, 
   IdCard 
 } from "lucide-react";
 
@@ -22,9 +22,9 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
     Cat: <Cat className="h-6 w-6 text-white" />,
     ScanLine: <ScanLine className="h-6 w-6 text-white" />,
     Users: <Users className="h-6 w-6 text-white" />,
-    Signature: <Signature className="h-6 w-6 text-white" />,
-    Nfc: <Nfc className="h-6 w-6 text-white" />,
-    MonitorCog: <MonitorCog className="h-6 w-6 text-white" />,
+    FileSignature: <FileSignature className="h-6 w-6 text-white" />,
+    CreditCard: <CreditCard className="h-6 w-6 text-white" />,
+    MonitorDot: <MonitorDot className="h-6 w-6 text-white" />,
     IdCard: <IdCard className="h-6 w-6 text-white" />
   };
 

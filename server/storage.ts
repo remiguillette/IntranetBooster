@@ -13,7 +13,7 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUserProfileImage(userId: number, profileImage: string): Promise<User | undefined>;
-  
+
   // Application operations
   getApplications(): Promise<Application[]>;
   getApplication(id: number): Promise<Application | undefined>;
@@ -32,7 +32,7 @@ export class MemStorage implements IStorage {
     this.applications = new Map();
     this.userIdCounter = 1;
     this.appIdCounter = 1;
-    
+
     // Initialize with default users
     this.createUser({
       username: "admin@beavernet.fr",
@@ -40,7 +40,7 @@ export class MemStorage implements IStorage {
       displayName: "Jean Dupont",
       initials: "JD"
     });
-    
+
     // Ajouter l'utilisateur remiguillette comme utilisateur par défaut
     this.createUser({
       username: "remiguillette@gmail.com",
@@ -48,14 +48,14 @@ export class MemStorage implements IStorage {
       displayName: "Remi Guillette",
       initials: "RG"
     });
-    
+
     // Initialize with our actual applications
     const defaultApps = [
       {
         name: "BeaverPatch",
         description: "CAD system",
         port: 5001,
-        icon: "Layout-dashboard"
+        icon: "LayoutDashboard"
       },
       {
         name: "BeaverLaw",
@@ -65,9 +65,9 @@ export class MemStorage implements IStorage {
       },
       {
         name: "BeaverScanner",
-        description: "lecture automatisée de plaques d’immatriculation",
+        description: "lecture automatisée de plaques d'immatriculation",
         port: 5003,
-        icon: "Scan-line"
+        icon: "ScanLine"
       },
       {
         name: "BeavernetCRM",
@@ -79,28 +79,28 @@ export class MemStorage implements IStorage {
         name: "BeaverDoc",
         description: "Surveillance des document",
         port: 5005,
-        icon: "Signature"
+        icon: "FileSignature"
       },
       {
         name: "BeaverPay",
         description: "Système de paiement sécurisé", 
         port: 5006,
-        icon: "Nfc"
+        icon: "CreditCard"
       },
       {
         name: "BeaverMonitor",
         description: "Information",
         port: 5007,
-        icon: "Monitor-cog"
+        icon: "MonitorDot"
       },
       {
         name: "BeaverDMV",
         description: "Vérification du permis de conduire",
         port: 5008,
-        icon: "Id-card"
+        icon: "IdCard"
       },
     ];
-    
+
     defaultApps.forEach(app => this.createApplication(app));
   }
 
@@ -121,25 +121,25 @@ export class MemStorage implements IStorage {
     this.users.set(id, user);
     return user;
   }
-  
+
   async updateUserProfileImage(userId: number, profileImage: string): Promise<User | undefined> {
     const user = await this.getUser(userId);
     if (!user) return undefined;
-    
+
     const updatedUser = { ...user, profileImage };
     this.users.set(userId, updatedUser);
     return updatedUser;
   }
-  
+
   // Application methods
   async getApplications(): Promise<Application[]> {
     return Array.from(this.applications.values());
   }
-  
+
   async getApplication(id: number): Promise<Application | undefined> {
     return this.applications.get(id);
   }
-  
+
   async createApplication(insertApp: InsertApplication): Promise<Application> {
     const id = this.appIdCounter++;
     const app: Application = { ...insertApp, id };
