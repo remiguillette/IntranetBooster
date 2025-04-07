@@ -52,9 +52,7 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
     >
       <Card className="bg-[#1E1E1E] border-none shadow-md transition-all duration-200 transform group-hover:-translate-y-1 group-hover:shadow-lg">
         <CardContent className="p-6">
-          <div className="w-12 h-12 bg-[#f89422] rounded-lg flex items-center justify-center mb-4">
-            {getIcon()}
-          </div>
+          
           <h3 className="text-lg font-semibold text-white mb-1">{application.name}</h3>
           <p className="text-sm text-gray-400">{application.description}</p>
           <p className="text-xs text-gray-500 mt-2">Port: {application.port}</p>
