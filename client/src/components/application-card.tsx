@@ -2,15 +2,15 @@
 import { Application } from "@/types/application";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
-  LayoutDashboard, 
+  LayoutDashboard,
   Cat, 
   ScanLine, 
   Users, 
-  FileSignature, 
-  CreditCard, 
-  MonitorDot, 
+  FileSignature,
+  CreditCard,
+  MonitorDot,
   IdCard,
-  MonitorCog 
+  MonitorCog
 } from "lucide-react";
 
 interface ApplicationCardProps {
@@ -18,18 +18,28 @@ interface ApplicationCardProps {
 }
 
 export default function ApplicationCard({ application }: ApplicationCardProps) {
-  const iconMap = {
-    LayoutDashboard: <LayoutDashboard className="h-6 w-6 text-white" />,
-    Cat: <Cat className="h-6 w-6 text-white" />,
-    ScanLine: <ScanLine className="h-6 w-6 text-white" />,
-    Users: <Users className="h-6 w-6 text-white" />,
-    FileSignature: <FileSignature className="h-6 w-6 text-white" />,
-    CreditCard: <CreditCard className="h-6 w-6 text-white" />,
-    MonitorDot: <MonitorDot className="h-6 w-6 text-white" />,
-    IdCard: <IdCard className="h-6 w-6 text-white" />
+  const getIcon = () => {
+    switch (application.icon) {
+      case "LayoutDashboard":
+        return <LayoutDashboard className="h-6 w-6 text-white" />;
+      case "Cat":
+        return <Cat className="h-6 w-6 text-white" />;
+      case "ScanLine":
+        return <ScanLine className="h-6 w-6 text-white" />;
+      case "Users":
+        return <Users className="h-6 w-6 text-white" />;
+      case "FileSignature":
+        return <FileSignature className="h-6 w-6 text-white" />;
+      case "CreditCard":
+        return <CreditCard className="h-6 w-6 text-white" />;
+      case "MonitorDot":
+        return <MonitorDot className="h-6 w-6 text-white" />;
+      case "IdCard":
+        return <IdCard className="h-6 w-6 text-white" />;
+      default:
+        return <MonitorCog className="h-6 w-6 text-white" />;
+    }
   };
-
-  const icon = iconMap[application.icon as keyof typeof iconMap] || <MonitorCog className="h-6 w-6 text-white" />;
 
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
@@ -43,7 +53,7 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
       <Card className="bg-[#1E1E1E] border-none shadow-md transition-all duration-200 transform group-hover:-translate-y-1 group-hover:shadow-lg">
         <CardContent className="p-6">
           <div className="w-12 h-12 bg-[#f89422] rounded-lg flex items-center justify-center mb-4">
-            {icon}
+            {getIcon()}
           </div>
           <h3 className="text-lg font-semibold text-white mb-1">{application.name}</h3>
           <p className="text-sm text-gray-400">{application.description}</p>
