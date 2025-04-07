@@ -1,4 +1,3 @@
-
 import { Application } from "@/types/application";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -9,49 +8,41 @@ import {
   Signature, 
   Nfc, 
   MonitorCog, 
-  IdCard, 
-  AppWindow,
-  type LucideIcon
+  IdCard 
 } from "lucide-react";
 
 interface ApplicationCardProps {
   application: Application;
 }
 
-const iconMap: Record<string, LucideIcon> = {
-  'Layout-dashboard': LayoutDashboard,
-  'Cat': Cat,
-  'Scan-line': ScanLine,
-  'Users': Users,
-  'Signature': Signature,
-  'Nfc': Nfc,
-  'Monitor-cog': MonitorCog,
-  'Id-card': IdCard,
-  'App-window': AppWindow
-};
-
 export default function ApplicationCard({ application }: ApplicationCardProps) {
-  const IconComponent = iconMap[application.icon] || AppWindow;
-  const appUrl = `${window.location.protocol}//${window.location.hostname}:${application.port}`;
+  // Dictionnaire qui fait correspondre les noms d'icônes aux composants Lucide
+  const iconComponents: Record<string, JSX.Element> = {
+    LayoutDashboard: <LayoutDashboard className="h-6 w-6 text-white" />,
+    Cat: <Cat className="h-6 w-6 text-white" />,
+    ScanLine: <ScanLine className="h-6 w-6 text-white" />,
+    Users: <Users className="h-6 w-6 text-white" />,
+    Signature: <Signature className="h-6 w-6 text-white" />,
+    Nfc: <Nfc className="h-6 w-6 text-white" />,
+    MonitorCog: <MonitorCog className="h-6 w-6 text-white" />,
+    IdCard: <IdCard className="h-6 w-6 text-white" />
+  };
+
+  const renderIcon = () => {
+    return iconComponents[application.icon] || <MonitorCog className="h-6 w-6 text-white" />;
+  };
+
+  const protocol = window.location.protocol;
+  const hostname = window.location.hostname;
+  const appUrl = `${protocol}//${hostname}:${application.port}`;
 
   return (
-    <a href={appUrl} className="block group">
+    <a 
+      href={appUrl} 
+      className="group block"
+    >
       <Card className="bg-[#1E1E1E] border-none shadow-md transition-all duration-200 transform group-hover:-translate-y-1 group-hover:shadow-lg">
         <CardContent className="p-6">
           <div className="w-12 h-12 bg-[#f89422] rounded-lg flex items-center justify-center mb-4">
-            <IconComponent className="h-6 w-6 text-white" />
+            {renderIcon()}
           </div>
-          <h3 className="text-lg font-medium text-[#f89422] mb-1">
-            {application.name}
-          </h3>
-          <p className="text-sm text-gray-300">
-            {application.description}
-          </p>
-          <div className="mt-4 flex items-center text-sm text-gray-400">
-            <span>Port: {application.port}</span>
-          </div>
-        </CardContent>
-      </Card>
-    </a>
-  );
-}

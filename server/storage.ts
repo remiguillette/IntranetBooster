@@ -1,11 +1,10 @@
-import { 
-  users, 
-  applications, 
-  type User, 
-  type InsertUser, 
-  type Application, 
-  type InsertApplication 
+import type { 
+  User, 
+  InsertUser, 
+  Application, 
+  InsertApplication 
 } from "@shared/schema";
+
 
 // Interface for storage operations
 export interface IStorage {
