@@ -12,22 +12,20 @@ export default function ApplicationCard({ application }: ApplicationCardProps) {
     switch(application.icon) {
       case 'layout-dashboard':
         return <Icons.LayoutDashboard className="h-6 w-6 text-white" />;
-      case 'scale':
-        return <Icons.Scale className="h-6 w-6 text-white" />;
-      case 'activity':
-        return <Icons.Activity className="h-6 w-6 text-white" />;
-      case 'update':
-        return <Icons.RefreshCw className="h-6 w-6 text-white" />; 
-      case 'scan':
+      case 'cat':
+        return <Icons.Cat className="h-6 w-6 text-white" />;
+      case 'scan-line':
         return <Icons.ScanLine className="h-6 w-6 text-white" />;
-      case 'map-pin':
-        return <Icons.MapPin className="h-6 w-6 text-white" />;
       case 'users':
         return <Icons.Users className="h-6 w-6 text-white" />;
-      case 'credit-card':
-        return <Icons.CreditCard className="h-6 w-6 text-white" />;
-      case 'car':
-        return <Icons.Car className="h-6 w-6 text-white" />;
+      case 'signature':
+        return <Icons.Signature className="h-6 w-6 text-white" />;
+      case 'nfc':
+        return <Icons.Nfc className="h-6 w-6 text-white" />;
+      case 'monitor-cog':
+        return <Icons.MonitorCog className="h-6 w-6 text-white" />;
+      case 'id-card':
+        return <Icons.IdCard className="h-6 w-6 text-white" />;
       default:
         return <Icons.Webhook className="h-6 w-6 text-white" />;
     }
