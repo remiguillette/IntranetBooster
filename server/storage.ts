@@ -89,7 +89,7 @@ export class MemStorage implements IStorage {
       {
         name: "BeaverDMV",
         description: "Vérification du permis de conduire",
-        port: "https://www.dlc.rus.mto.gov.on.ca/dlc/fr/entrer-renseignements"
+        
       },
     ];
 
