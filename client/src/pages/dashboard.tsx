@@ -31,7 +31,7 @@ export default function Dashboard() {
     <div className="min-h-screen flex flex-col bg-[#121212]">
       {/* Header with navigation */}
       <header className="bg-[#1E1E1E] shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-4">
               <img src={beaverImage} alt="Beaver Mascot" className="h-16 w-auto" />
