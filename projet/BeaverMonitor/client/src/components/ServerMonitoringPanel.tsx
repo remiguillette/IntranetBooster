@@ -125,7 +125,17 @@ export default function ServerMonitoringPanel() {
     }
 
     if (isServerStatusError || !serverStatusData || !Array.isArray(serverStatusData)) {
-      return <div className="text-red-500">Impossible de charger les données des serveurs.</div>;
+      return (
+        <div className="flex flex-col items-center justify-center p-4">
+          <div className="text-red-500 mb-2">Impossible de charger les données des serveurs.</div>
+          <button 
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+          >
+            Réessayer
+          </button>
+        </div>
+      );
     }
 
     const visibleServers = serverStatusData.slice(currentIndex, currentIndex + 4);
