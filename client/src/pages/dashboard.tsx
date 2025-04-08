@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
@@ -11,7 +12,6 @@ export default function Dashboard() {
   const [, setLocation] = useLocation();
   const { user, isAuthenticated } = useAuth();
   
-  // Redirect to login if not authenticated
   useEffect(() => {
     if (!isAuthenticated) {
       setLocation("/");
@@ -28,23 +28,20 @@ export default function Dashboard() {
   }
   
   return (
-    <div className="min-h-screen flex flex-col bg-[#121212]">
-      {/* Header with navigation */}
-      <header className="bg-[#1E1E1E] shadow-md">
+    <div className="min-h-screen flex flex-col bg-black">
+      <header className="bg-black shadow-md border-b border-gray-800">
         <div className="w-full px-4">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-4">
               <img src={beaverImage} alt="Beaver Mascot" className="h-16 w-auto" />
               <h1 className="text-6xl font-extrabold text-[#f89422] tracking-wide uppercase">BEAVERNET</h1>
             </div>
-            
             {user && <UserDropdown user={user} />}
           </div>
         </div>
       </header>
       
-      {/* Main content */}
-      <main className="flex-grow">
+      <main className="flex-grow bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h2 className="text-xl font-semibold text-[#f89422] mb-6">Applications</h2>
           
